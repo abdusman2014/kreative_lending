@@ -1149,8 +1149,7 @@ function HeroBanner() {
           Real Estate Deals
         </h1>
         <p style={heroBannerStyles.subtitle}>
-          Unlock fast, reliable funding for your real estate deals with Nex Gen
-          Solutions Group. Get immediate access to 100% financing for Earnest
+          Unlock fast, reliable funding for your real estate deals with Kreative lending Group. Get immediate access to 100% financing for Earnest
           Money Deposits and Double Closings, hassle-free.
         </p>
       </div>
@@ -1521,13 +1520,13 @@ function Step1({ data, set }) {
             value={data.originalPurchasePrice || ""}
             onChange={(e) => set("originalPurchasePrice", e.target.value)}
           />
-          <Input
+          {/* <Input
             label="When was the Property Originally Purchased?"
             required
             type="date"
             value={data.originalPurchaseDate || ""}
             onChange={(e) => set("originalPurchaseDate", e.target.value)}
-          />
+          /> */}
           <RadioGroup
             label="Has Work Already Been Completed?"
             required
