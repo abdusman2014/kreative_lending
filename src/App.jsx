@@ -1465,7 +1465,7 @@ function Step1({ data, set }) {
           required
           hint={showDSCR ? "*DSCR - Maximum is 85%" : undefined}
           options={[
-            "100%",
+            
             "96-99%",
             "91-95%",
             "86-90%",
