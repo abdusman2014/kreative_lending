@@ -264,7 +264,7 @@
 //   return (
 //     <div>
 //       <SectionTitle>Loan Program</SectionTitle>
-//       {/* 
+//       {/*
 //       <Row>
 //         <Select
 //           label="Are you a Borrower, Broker, Connector, or Wholesaler?"
@@ -1149,7 +1149,8 @@ function HeroBanner() {
           Real Estate Deals
         </h1>
         <p style={heroBannerStyles.subtitle}>
-          Unlock fast, reliable funding for your real estate deals with Kreative lending Group.
+          Unlock fast, reliable funding for your real estate deals with Kreative
+          lending Group.
         </p>
       </div>
     </div>
@@ -1290,7 +1291,15 @@ function RadioGroup({ label, required, hint, options, name, value, onChange }) {
   );
 }
 
-function CheckGroup({ label, required, hint, options, name, value = [], onChange }) {
+function CheckGroup({
+  label,
+  required,
+  hint,
+  options,
+  name,
+  value = [],
+  onChange,
+}) {
   const toggle = (val) => {
     if (value.includes(val)) onChange(value.filter((v) => v !== val));
     else onChange([...value, val]);
@@ -1352,10 +1361,8 @@ function Step1({ data, set }) {
   const showGround = loanProduct === "Ground Up Construction";
   const showDSCR = loanProduct === "DSCR Rental Loan";
 
-  const isPurchase =
-    data.purchaseOrRefi === "Purchase - Currently under contract" ||
-    data.purchaseOrRefi === "Purchase - Not Under Contract Yet";
-  const isRefi = data.purchaseOrRefi === "Refinance - I already own";
+  const isPurchase = data.purchaseOrRefi === "Purchase";
+  const isRefi = data.purchaseOrRefi === "Refinance";
   const isRenovation = data.isRenovation === "Yes";
 
   return (
@@ -1365,7 +1372,13 @@ function Step1({ data, set }) {
       <Row>
         <div style={styles.fieldWrap}>
           <Label required>Your Name</Label>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 12px" }}>
+          <div
+            style={{
+              display: "grid",
+              gridTemplateColumns: "1fr 1fr",
+              gap: "0 12px",
+            }}
+          >
             <input
               style={styles.input}
               placeholder="First Name"
@@ -1381,13 +1394,13 @@ function Step1({ data, set }) {
           </div>
         </div>
 
-        <Input
+        {/* <Input
           label="Target Close Date"
           required
           type="date"
           value={data.closeDate || ""}
           onChange={(e) => set("closeDate", e.target.value)}
-        />
+        /> */}
       </Row>
 
       <Row>
@@ -1432,8 +1445,15 @@ function Step1({ data, set }) {
             label="How many ground up experiences completed?"
             required
             options={[
-              "1-2 Properties","3 Properties","4 Properties","5 Properties",
-              "6 Properties","7 Properties","8 Properties","9 Properties","Other",
+              "1-2 Properties",
+              "3 Properties",
+              "4 Properties",
+              "5 Properties",
+              "6 Properties",
+              "7 Properties",
+              "8 Properties",
+              "9 Properties",
+              "Other",
             ]}
             value={data.groundUpExp || ""}
             onChange={(e) => set("groundUpExp", e.target.value)}
@@ -1444,7 +1464,17 @@ function Step1({ data, set }) {
           label="Desired Leverage"
           required
           hint={showDSCR ? "*DSCR - Maximum is 85%" : undefined}
-          options={["100%","96-99%","91-95%","86-90%","81-85%","76-80%","71-75%","66-70%","60-65%"]}
+          options={[
+            "100%",
+            "96-99%",
+            "91-95%",
+            "86-90%",
+            "81-85%",
+            "76-80%",
+            "71-75%",
+            "66-70%",
+            "60-65%",
+          ]}
           value={data.leverage || ""}
           onChange={(e) => set("leverage", e.target.value)}
         />
@@ -1454,11 +1484,7 @@ function Step1({ data, set }) {
         label="Is this a Purchase or Refinance?"
         required
         name="purchaseOrRefi"
-        options={[
-          "Purchase - Currently under contract",
-          "Purchase - Not Under Contract Yet",
-          "Refinance - I already own",
-        ]}
+        options={["Purchase", "Refinance"]}
         value={data.purchaseOrRefi || ""}
         onChange={(v) => set("purchaseOrRefi", v)}
       />
@@ -1508,7 +1534,12 @@ function Step1({ data, set }) {
           <Select
             label="Loan Purpose"
             required
-            options={["Delayed Purchase","Cash-Out Refinance","Rate & Term Refinance","Mid-Construction Refinance"]}
+            options={[
+              "Delayed Purchase",
+              "Cash-Out Refinance",
+              "Rate & Term Refinance",
+              "Mid-Construction Refinance",
+            ]}
             value={data.loanPurpose || ""}
             onChange={(e) => set("loanPurpose", e.target.value)}
           />
@@ -1546,7 +1577,11 @@ function Step1({ data, set }) {
           <Select
             label="Are there Any Liens on the Property?"
             required
-            options={["Yes - 1 lien","Yes - More than 1 lien","No - Owned Free and Clear"]}
+            options={[
+              "Yes - 1 lien",
+              "Yes - More than 1 lien",
+              "No - Owned Free and Clear",
+            ]}
             value={data.liens || ""}
             onChange={(e) => set("liens", e.target.value)}
           />
@@ -1580,10 +1615,35 @@ function Step1({ data, set }) {
 
       {showGround && (
         <>
-          <RadioGroup label="Is this a full tear-down?" name="tearDown" options={["Yes","No – Already demolished"]} value={data.tearDown || ""} onChange={(v) => set("tearDown", v)} />
-          <RadioGroup label="Shovel-ready?" name="shovelReady" options={["Yes – Ready to build","No – Not ready yet"]} value={data.shovelReady || ""} onChange={(v) => set("shovelReady", v)} />
-          <RadioGroup label="Permit status:" name="permitStatus" options={["Approved","Applied","Not started"]} value={data.permitStatus || ""} onChange={(v) => set("permitStatus", v)} />
-          <RadioGroup label="Expansion or change of use?" required name="changeOfUse" options={["Yes","No"]} value={data.changeOfUse || ""} onChange={(v) => set("changeOfUse", v)} />
+          <RadioGroup
+            label="Is this a full tear-down?"
+            name="tearDown"
+            options={["Yes", "No – Already demolished"]}
+            value={data.tearDown || ""}
+            onChange={(v) => set("tearDown", v)}
+          />
+          <RadioGroup
+            label="Shovel-ready?"
+            name="shovelReady"
+            options={["Yes – Ready to build", "No – Not ready yet"]}
+            value={data.shovelReady || ""}
+            onChange={(v) => set("shovelReady", v)}
+          />
+          <RadioGroup
+            label="Permit status:"
+            name="permitStatus"
+            options={["Approved", "Applied", "Not started"]}
+            value={data.permitStatus || ""}
+            onChange={(v) => set("permitStatus", v)}
+          />
+          <RadioGroup
+            label="Expansion or change of use?"
+            required
+            name="changeOfUse"
+            options={["Yes", "No"]}
+            value={data.changeOfUse || ""}
+            onChange={(v) => set("changeOfUse", v)}
+          />
           <CheckGroup
             label="Are any of the following happening?"
             required
@@ -1600,8 +1660,20 @@ function Step1({ data, set }) {
             value={data.groundUpChanges || []}
             onChange={(v) => set("groundUpChanges", v)}
           />
-          <RadioGroup label="Need Gap Funding (2nd position to cover down payment or costs)?" name="gapFunding" options={["Yes","No"]} value={data.gapFunding || ""} onChange={(v) => set("gapFunding", v)} />
-          <RadioGroup label="Is this a Morby Method?" name="morbyMethod" options={["Yes","No"]} value={data.morbyMethod || ""} onChange={(v) => set("morbyMethod", v)} />
+          <RadioGroup
+            label="Need Gap Funding (2nd position to cover down payment or costs)?"
+            name="gapFunding"
+            options={["Yes", "No"]}
+            value={data.gapFunding || ""}
+            onChange={(v) => set("gapFunding", v)}
+          />
+          <RadioGroup
+            label="Is this a Morby Method?"
+            name="morbyMethod"
+            options={["Yes", "No"]}
+            value={data.morbyMethod || ""}
+            onChange={(v) => set("morbyMethod", v)}
+          />
         </>
       )}
     </div>
@@ -1610,7 +1682,9 @@ function Step1({ data, set }) {
 
 function Step2({ data, set }) {
   const showOther = data.propertyType === "Other Commercial";
-  const showUnits = ["Multifamily (5+ Units)", "Commercial 5-9 units"].includes(data.propertyType);
+  const showUnits = ["Multifamily (5+ Units)", "Commercial 5-9 units"].includes(
+    data.propertyType
+  );
 
   return (
     <div>
@@ -1692,40 +1766,40 @@ export default function KreativeLending() {
 
   const submitToGHL = async (data) => {
     const payload = {
-      firstName:             data.firstName             || "",
-      lastName:              data.lastName              || "",
-      email:                 data.email                 || "",
-      phone:                 data.phone                 || "",
-      closeDate:             data.closeDate             || "",
-      loanProduct:           data.loanProduct           || "",
-      leverage:              data.leverage              || "",
-      purchaseOrRefi:        data.purchaseOrRefi        || "",
-      purchasePrice:         data.purchasePrice         || "",
-      isRenovation:          data.isRenovation          || "",
-      rehabBudget:           data.rehabBudget           || "",
-      constructionBudget:    data.constructionBudget    || "",
-      groundUpExp:           data.groundUpExp           || "",
-      loanPurpose:           data.loanPurpose           || "",
+      firstName: data.firstName || "",
+      lastName: data.lastName || "",
+      email: data.email || "",
+      phone: data.phone || "",
+      closeDate: data.closeDate || "",
+      loanProduct: data.loanProduct || "",
+      leverage: data.leverage || "",
+      purchaseOrRefi: data.purchaseOrRefi || "",
+      purchasePrice: data.purchasePrice || "",
+      isRenovation: data.isRenovation || "",
+      rehabBudget: data.rehabBudget || "",
+      constructionBudget: data.constructionBudget || "",
+      groundUpExp: data.groundUpExp || "",
+      loanPurpose: data.loanPurpose || "",
       originalPurchasePrice: data.originalPurchasePrice || "",
-      originalPurchaseDate:  data.originalPurchaseDate  || "",
-      workCompleted:         data.workCompleted         || "",
-      rehabCompleted:        data.rehabCompleted        || "",
-      liens:                 data.liens                 || "",
-      lienBalances:          data.lienBalances          || "",
-      firstLienPayment:      data.firstLienPayment      || "",
-      loanAmount:            data.loanAmount            || "",
-      tearDown:              data.tearDown              || "",
-      shovelReady:           data.shovelReady           || "",
-      permitStatus:          data.permitStatus          || "",
-      changeOfUse:           data.changeOfUse           || "",
-      groundUpChanges:       (data.groundUpChanges || []).join(", "),
-      gapFunding:            data.gapFunding            || "",
-      morbyMethod:           data.morbyMethod           || "",
-      propertyAddress:       data.propertyAddress       || "",
-      propertyType:          data.propertyType          || "",
-      propertyTypeOther:     data.propertyTypeOther     || "",
-      unitCount:             data.unitCount             || "",
-      hasHOA:                data.hasHOA                || "",
+      originalPurchaseDate: data.originalPurchaseDate || "",
+      workCompleted: data.workCompleted || "",
+      rehabCompleted: data.rehabCompleted || "",
+      liens: data.liens || "",
+      lienBalances: data.lienBalances || "",
+      firstLienPayment: data.firstLienPayment || "",
+      loanAmount: data.loanAmount || "",
+      tearDown: data.tearDown || "",
+      shovelReady: data.shovelReady || "",
+      permitStatus: data.permitStatus || "",
+      changeOfUse: data.changeOfUse || "",
+      groundUpChanges: (data.groundUpChanges || []).join(", "),
+      gapFunding: data.gapFunding || "",
+      morbyMethod: data.morbyMethod || "",
+      propertyAddress: data.propertyAddress || "",
+      propertyType: data.propertyType || "",
+      propertyTypeOther: data.propertyTypeOther || "",
+      unitCount: data.unitCount || "",
+      hasHOA: data.hasHOA || "",
     };
 
     const res = await fetch(GHL_WEBHOOK_URL, {
@@ -1746,7 +1820,9 @@ export default function KreativeLending() {
       window.scrollTo({ top: 0, behavior: "smooth" });
     } catch (err) {
       console.error("Submission error:", err);
-      alert("Something went wrong submitting your application. Please try again.");
+      alert(
+        "Something went wrong submitting your application. Please try again."
+      );
     } finally {
       setSubmitting(false);
     }
@@ -1773,13 +1849,35 @@ export default function KreativeLending() {
           <img src={logo} alt="Kreative Lending" style={styles.logo} />
         </div>
         <div style={styles.container}>
-          <div style={{ ...styles.card, textAlign: "center", padding: "60px 20px" }}>
+          <div
+            style={{
+              ...styles.card,
+              textAlign: "center",
+              padding: "60px 20px",
+            }}
+          >
             <div style={{ fontSize: 56, marginBottom: 16 }}>✅</div>
-            <h2 style={{ fontSize: 26, color: "#ffffff", marginBottom: 12, fontWeight: 700 }}>
+            <h2
+              style={{
+                fontSize: 26,
+                color: "#ffffff",
+                marginBottom: 12,
+                fontWeight: 700,
+              }}
+            >
               Application Submitted!
             </h2>
-            <p style={{ color: "#aaa", fontSize: 15, maxWidth: 400, margin: "0 auto", lineHeight: 1.6 }}>
-              Thank you for submitting your loan application. Our team will review it and reach out to you shortly.
+            <p
+              style={{
+                color: "#aaa",
+                fontSize: 15,
+                maxWidth: 400,
+                margin: "0 auto",
+                lineHeight: 1.6,
+              }}
+            >
+              Thank you for submitting your loan application. Our team will
+              review it and reach out to you shortly.
             </p>
           </div>
         </div>
@@ -1803,7 +1901,10 @@ export default function KreativeLending() {
           <div style={styles.progressLabel}>
             Step <strong style={{ color: "#F4522A" }}>{step}</strong> of{" "}
             <strong style={{ color: "#fff" }}>{TOTAL_STEPS}</strong>
-            <span style={styles.progressStepName}> — {STEPS[step - 1].label}</span>
+            <span style={styles.progressStepName}>
+              {" "}
+              — {STEPS[step - 1].label}
+            </span>
           </div>
           <div style={styles.progressBarOuter}>
             <div style={{ ...styles.progressBarInner, width: `${pct}%` }} />
@@ -1824,7 +1925,12 @@ export default function KreativeLending() {
               <span
                 style={{
                   ...styles.stepPillNum,
-                  background: step === s.id ? "#F4522A" : step > s.id ? "#F4522A" : "#2E2E2E",
+                  background:
+                    step === s.id
+                      ? "#F4522A"
+                      : step > s.id
+                      ? "#F4522A"
+                      : "#2E2E2E",
                   color: "#fff",
                 }}
               >
