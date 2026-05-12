@@ -1149,8 +1149,7 @@ function HeroBanner() {
           Real Estate Deals
         </h1>
         <p style={heroBannerStyles.subtitle}>
-          Unlock fast, reliable funding for your real estate deals with Kreative lending Group. Get immediate access to 100% financing for Earnest
-          Money Deposits and Double Closings, hassle-free.
+          Unlock fast, reliable funding for your real estate deals with Kreative lending Group.
         </p>
       </div>
     </div>
